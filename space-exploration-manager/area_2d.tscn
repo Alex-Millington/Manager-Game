@@ -1,0 +1,91 @@
+[gd_scene load_steps=13 format=3 uid="uid://bklfvhptj4gbd"]
+
+[ext_resource type="Script" path="res://area_2d.gd" id="1_peqoh"]
+[ext_resource type="Texture2D" uid="uid://csipqh3txv8mt" path="res://IMG_20240622_140746.jpg" id="2_ov8vw"]
+[ext_resource type="Texture2D" uid="uid://dtqqhu6jfka4n" path="res://IMG_20240622_140903.jpg" id="2_p0ar3"]
+[ext_resource type="Script" path="res://employee.gd" id="4_7nrh7"]
+[ext_resource type="Texture2D" uid="uid://c461cv6bb1vgi" path="res://good boy.png" id="5_i8vyd"]
+[ext_resource type="Script" path="res://casper.gd" id="5_idn5w"]
+[ext_resource type="Texture2D" uid="uid://bnojbpq8u7vbx" path="res://employee stock image.webp" id="6_7nd6p"]
+[ext_resource type="Texture2D" uid="uid://b54ntdcxnipu4" path="res://office lounge.jpg" id="8_luioi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbgc1"]
+size = Vector2(1016, 1363)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ph0lo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ov8vw")
+}],
+"loop": true,
+"name": &"go",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p0ar3")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rk47x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_i8vyd")
+}],
+"loop": true,
+"name": &"contact",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_7nd6p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xfjs"]
+size = Vector2(503, 331)
+
+[node name="Area2D" type="Node2D"]
+position = Vector2(323, 453)
+script = ExtResource("1_peqoh")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(700, 350)
+scale = Vector2(3, 3)
+texture = ExtResource("8_luioi")
+
+[node name="Casper" type="Area2D" parent="."]
+script = ExtResource("5_idn5w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Casper"]
+position = Vector2(0, -1.5)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_hbgc1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Casper"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ph0lo")
+animation = &"stay"
+
+[node name="Employee" type="Area2D" parent="."]
+script = ExtResource("4_7nrh7")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Employee"]
+position = Vector2(1000, 350)
+sprite_frames = SubResource("SpriteFrames_rk47x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Employee"]
+position = Vector2(1000, 350)
+shape = SubResource("RectangleShape2D_3xfjs")
+
+[connection signal="area_entered" from="Employee" to="Employee" method="_on_Employee_area_entered"]

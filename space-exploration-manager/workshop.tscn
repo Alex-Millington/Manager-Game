@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://buh32cruvppta"]
+
+[ext_resource type="Texture2D" uid="uid://dg7y3hom730ql" path="res://workshop.jpg" id="1_x0ng7"]
+[ext_resource type="PackedScene" uid="uid://dwal1ypaepk5g" path="res://casper.tscn" id="2_5c7g6"]
+[ext_resource type="Script" path="res://employee_2.gd" id="5_mf5n4"]
+[ext_resource type="Texture2D" uid="uid://c461cv6bb1vgi" path="res://good boy.png" id="6_ymcvd"]
+[ext_resource type="Script" path="res://score_label.gd" id="7_s4fod"]
+[ext_resource type="Texture2D" uid="uid://bnojbpq8u7vbx" path="res://employee stock image.webp" id="7_ti78b"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="8_pft3i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yf5dr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ymcvd")
+}],
+"loop": true,
+"name": &"contact",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ti78b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bo3l2"]
+size = Vector2(503, 331)
+
+[sub_resource type="Theme" id="Theme_gbqlo"]
+default_font_size = 100
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_x0ng7")
+
+[node name="Casper" parent="." instance=ExtResource("2_5c7g6")]
+
+[node name="Employee2" type="Area2D" parent="."]
+script = ExtResource("5_mf5n4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Employee2"]
+sprite_frames = SubResource("SpriteFrames_yf5dr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Employee2"]
+shape = SubResource("RectangleShape2D_bo3l2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("8_pft3i")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_gbqlo")
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -821.0
+offset_top = -530.0
+offset_right = -652.0
+offset_bottom = -461.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Profit: 0"
+script = ExtResource("7_s4fod")
+
+[connection signal="area_entered" from="Employee2" to="Employee2" method="_on_Employee_area_entered"]

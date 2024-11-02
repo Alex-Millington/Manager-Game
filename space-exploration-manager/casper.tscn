@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwal1ypaepk5g"]
+
+[ext_resource type="Script" path="res://casper.gd" id="1_w0wf6"]
+[ext_resource type="Texture2D" uid="uid://csipqh3txv8mt" path="res://IMG_20240622_140746.jpg" id="2_duqcf"]
+[ext_resource type="Texture2D" uid="uid://dtqqhu6jfka4n" path="res://IMG_20240622_140903.jpg" id="3_6j54h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_te6pm"]
+size = Vector2(1016, 1363)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_53nuy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_duqcf")
+}],
+"loop": true,
+"name": &"go",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6j54h")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]
+
+[node name="Casper" type="Area2D"]
+script = ExtResource("1_w0wf6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_te6pm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_53nuy")
+animation = &"stay"
